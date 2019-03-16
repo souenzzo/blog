@@ -1,0 +1,9 @@
+title: Enzzo Cavallo
+destination: blog
+baseurl: "/blog"
+url: "https://souenzzo.github.io"
+
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
