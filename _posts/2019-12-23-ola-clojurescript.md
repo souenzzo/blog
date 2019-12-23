@@ -20,7 +20,7 @@ Vou supor que o leitor:
 ```
 TIP: Quando digo que algo deve ser "commitado", entenda que é algo importante que deve ser salvo.
 Quando digo "não commitado", entenda que vc pode deletar aquele arquivo e ele será baixado/gerado sozinho novamente.
-``` 
+```
 
 O projeto vai se chamar `ola-mundo`.
 
@@ -30,9 +30,9 @@ O [npm](https://nodejs.org/) é configurado via arquivo `package.json`
 
 O `npm install` gera o arquivo `package-lock.json` que deve ser commitado e a pasta `node_modules`, que não deve ser commitada.
 
-[shadow-cljs](https://shadow-cljs.github.io) é responsavel por "compilar" seu [clojurescript](https://clojurescript.org) 
+[shadow-cljs](https://shadow-cljs.github.io) é responsavel por "compilar" seu [clojurescript](https://clojurescript.org)
 
-O [shadow-cljs](https://shadow-cljs.github.io) vai gerar milhares de arquivos na pasta `target`. Esses arquivos podem 
+O [shadow-cljs](https://shadow-cljs.github.io) vai gerar milhares de arquivos na pasta `target`. Esses arquivos podem
 ser deletados e não devem ser commitados
 
 Para configurar o `shadow-cljs` precisamos de dois arquivos:
@@ -42,12 +42,10 @@ Para configurar o `shadow-cljs` precisamos de dois arquivos:
 
 O shadow-cljs também aproveita dependencias diretamente do `package.json`
 
-Apesar do shadow-cljs rodar via npm (node), ele precisará chamar o compilador de clojurescript, que precisa do java. 
+Apesar do shadow-cljs rodar via npm (node), ele precisará chamar o compilador de clojurescript, que precisa do java.
 
 ## Conferindo os requisitos
-
 1. Vamos conferir se há `node`, `npm` e `java` instalados:
-
 {% highlight bash %}
 $ node --version
 v13.4.0
@@ -58,14 +56,11 @@ openjdk version "1.8.0_232"
 OpenJDK Runtime Environment (build 1.8.0_232-b09)
 OpenJDK 64-Bit Server VM (build 25.232-b09, mixed mode)
 {% endhighlight %}
-
 ## Criando projeto
-
-1. Crie uma pasta chamada `ola-mundo`. 
+1. Crie uma pasta chamada `ola-mundo`.
 
 1. Crie o arquivo `shadow-cljs.edn`
-
-{% highlight clojure %} 
+{% highlight clojure %}
 {:deps     true
  :dev-http {8080 ["target/public" "classpath:public"]}
  :builds   {:ola-mundo {:target     :browser
@@ -73,21 +68,16 @@ OpenJDK 64-Bit Server VM (build 25.232-b09, mixed mode)
                         :asset-path "/ola-mundo"
                         :modules    {:main {:init-fn ola-mundo.client/main}}
                         :devtools   {:after-load ola-mundo.client/after-load}}}}
-
 {% endhighlight %}
-
 1. Crie o arquivo `deps.edn`
-
-{% highlight clojure %} 
+{% highlight clojure %}
 {:paths ["src" "resources"]
  :deps  {org.clojure/clojure  {:mvn/version "1.10.1"}
          reagent/reagent      {:mvn/version "0.8.1"}
          thheller/shadow-cljs {:mvn/version "2.8.83"}}}
 {% endhighlight %}
-
 1. Crie o arquivo `package.json`
-
-{% highlight json %} 
+{% highlight json %}
 {
   "scripts": {
     "start": "shadow-cljs watch ola-mundo"
@@ -100,12 +90,10 @@ OpenJDK 64-Bit Server VM (build 25.232-b09, mixed mode)
   }
 }
 {% endhighlight %}
-
 1. HTML Basico para seu projeto
-
 {% highlight html %}
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>Olá mundo!</title>
@@ -119,7 +107,7 @@ OpenJDK 64-Bit Server VM (build 25.232-b09, mixed mode)
 
 1. Crie o arquivo com o código
 
-{% highlight clojure %} 
+{% highlight clojure %}
 (ns ola-mundo.client
   (:require [reagent.core :as r]))
 
@@ -135,10 +123,8 @@ OpenJDK 64-Bit Server VM (build 25.232-b09, mixed mode)
   (main))
 {% endhighlight %}
 
- 
 ## Iniciando o shadow-cljs
 
 {% highlight bash %}
 $ npm start
 {% endhighlight %}
-
