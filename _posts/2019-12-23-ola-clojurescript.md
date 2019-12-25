@@ -18,7 +18,7 @@ Vou supor que o leitor:
 ## Mapa geral
 
 ```
-TIP: Quando digo que algo deve ser "commitado", entenda que é algo importante que deve ser salvo.
+DICA: Quando digo que algo deve ser "commitado", entenda que é algo importante que deve ser salvo.
 Quando digo "não commitado", entenda que vc pode deletar aquele arquivo e ele será baixado/gerado sozinho novamente.
 ```
 
@@ -45,7 +45,7 @@ O shadow-cljs também aproveita dependencias diretamente do `package.json`
 Apesar do shadow-cljs rodar via npm (node), ele precisará chamar o compilador de clojurescript, que precisa do java.
 
 ## Conferindo os requisitos
-1. Vamos conferir se há `node`, `npm` e `java` instalados:
+1. Vamos conferir se há `node`, `npm` e `java` instalados. Para isso digite os seguintes comandos no terminal.
 {% highlight bash %}
 $ node --version
 v13.4.0
@@ -59,24 +59,27 @@ OpenJDK 64-Bit Server VM (build 25.232-b09, mixed mode)
 ## Criando projeto
 1. Crie uma pasta chamada `ola-mundo`.
 
-1. Crie o arquivo `shadow-cljs.edn`
-{% highlight clojure %}
-{:deps     true
- :dev-http {8080 ["target/public" "classpath:public"]}
- :builds   {:ola-mundo {:target     :browser
-                        :output-dir "target/public/ola-mundo"
-                        :asset-path "/ola-mundo"
-                        :modules    {:main {:init-fn ola-mundo.client/main}}
-                        :devtools   {:after-load ola-mundo.client/after-load}}}}
-{% endhighlight %}
-1. Crie o arquivo `deps.edn`
+1. Crie o arquivo `deps.edn` dentro da pasta `ola-mundo`. Aqui vamos especificar onde nosso código está, e quais
+dependencias pretendemos usar.
 {% highlight clojure %}
 {:paths ["src" "resources"]
  :deps  {org.clojure/clojure  {:mvn/version "1.10.1"}
          reagent/reagent      {:mvn/version "0.8.1"}
          thheller/shadow-cljs {:mvn/version "2.8.83"}}}
 {% endhighlight %}
-1. Crie o arquivo `package.json`
+
+1. Crie o arquivo `shadow-cljs.edn` ao lado do `deps.edn`.  Neste arquivo configuramos o shadow-cljs para compilar o 
+clojurescript, subir um servidor HTTP e servir o HTML que vamos criar.
+{% highlight clojure %}
+{:deps     true
+ :dev-http {8080 ["target/public" "classpath:public"]}
+ :builds   {:ola-mundo {:target     :browser
+                        :output-dir "target/public"
+                        :asset-path ""
+                        :modules    {:main {:init-fn ola-mundo.client/main}}
+                        :devtools   {:after-load ola-mundo.client/after-load}}}}
+{% endhighlight %}
+1. Crie o arquivo `package.json`. Neste arquivo configuramos o `npm` para baixar as dependencias que vamos usar 
 {% highlight json %}
 {
   "scripts": {
@@ -90,7 +93,8 @@ OpenJDK 64-Bit Server VM (build 25.232-b09, mixed mode)
   }
 }
 {% endhighlight %}
-1. HTML Basico para seu projeto
+1. Crie as patas necessárias para criar o arquivo `resources/public/index.html`. Nele temos um HTML minimo para uma 
+aplicação tipo-react
 {% highlight html %}
 <!DOCTYPE html>
 <html>
@@ -105,7 +109,8 @@ OpenJDK 64-Bit Server VM (build 25.232-b09, mixed mode)
 </html>
 {% endhighlight %}
 
-1. Crie o arquivo com o código
+1. Crie o arquivo `src/ola_mundo/client.cljs`. Repare que o `ola_mundo` no nome da pasta está com `_` enqunto em todos
+outros lugares está com `-`. Este é o modo correto. Caso tenha curiosidade no motivo disso, procure sobre `munge`.
 
 {% highlight clojure %}
 (ns ola-mundo.client
@@ -123,8 +128,32 @@ OpenJDK 64-Bit Server VM (build 25.232-b09, mixed mode)
   (main))
 {% endhighlight %}
 
+1. Após criar estes rquivos, vc deve ter exatamente essa estrutura de diretórios:
+
+```
+.
+├── deps.edn
+├── package.json
+├── package-lock.json
+├── resources
+│   └── public
+│       └── index.html
+├── shadow-cljs.edn
+└── src
+    └── ola_mundo
+        └── client.cljs
+```
+
+
 ## Iniciando o shadow-cljs
+
+Execute `npm install && npm start`. Esse processo deve demorar MUITO na primeira vez (5 min talvez). Da segunda vez em diante
+(incluindo novos projetos) esse tempo já deve cair para 1min. 
 
 {% highlight bash %}
 $ npm start
 {% endhighlight %}
+
+
+Uma vez o shadow-cljs rodando, conecte em [localhost:8080](http://localhost:8080). Daí para frente vc já pode editar
+o arquivo `src/ola_mundo/client.cljs` e ver o resultado das alterções enquanto edita.
