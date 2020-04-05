@@ -38,7 +38,6 @@ ser deletados e não devem ser commitados
 Para configurar o `shadow-cljs` precisamos de dois arquivos:
 
 - O `shadow-cljs.edn`, que contem informações sobre "o que vc quer que eu compile"
-- O `deps.edn` que declara as dependencias do projeto (bibliotecas que eu quero usar)
 
 O shadow-cljs também aproveita dependencias diretamente do `package.json`
 
@@ -59,25 +58,17 @@ OpenJDK 64-Bit Server VM (build 25.232-b09, mixed mode)
 ## Criando projeto
 1. Crie uma pasta chamada `ola-mundo`.
 
-1. Crie o arquivo `deps.edn` dentro da pasta `ola-mundo`. Aqui vamos especificar onde nosso código está, e quais
-dependencias pretendemos usar.
-{% highlight clojure %}
-{:paths ["src" "resources"]
- :deps  {org.clojure/clojure  {:mvn/version "1.10.1"}
-         reagent/reagent      {:mvn/version "0.8.1"}
-         thheller/shadow-cljs {:mvn/version "2.8.83"}}}
-{% endhighlight %}
-
-1. Crie o arquivo `shadow-cljs.edn` ao lado do `deps.edn`.  Neste arquivo configuramos o shadow-cljs para compilar o 
+1. Crie o arquivo `shadow-cljs.edn` dentro da pasta `ola-mundo`.  Neste arquivo configuramos o shadow-cljs para compilar o 
 clojurescript, subir um servidor HTTP e servir o HTML que vamos criar.
 {% highlight clojure %}
-{:deps     true
- :dev-http {8080 ["target/public" "classpath:public"]}
- :builds   {:ola-mundo {:target     :browser
-                        :output-dir "target/public"
-                        :asset-path ""
-                        :modules    {:main {:init-fn ola-mundo.client/main}}
-                        :devtools   {:after-load ola-mundo.client/after-load}}}}
+{:source-paths ["src" "resources"]
+ :dependencies [[reagent/reagent "0.8.1"]]
+ :dev-http     {8080 ["target/public" "classpath:public"]}
+ :builds       {:ola-mundo {:target     :browser
+                            :output-dir "target/public"
+                            :asset-path "/"
+                            :modules    {:main {:init-fn ola-mundo.client/main}}
+                            :devtools   {:after-load ola-mundo.client/after-load}}}}
 {% endhighlight %}
 1. Crie o arquivo `package.json`. Neste arquivo configuramos o `npm` para baixar as dependencias que vamos usar 
 {% highlight json %}
@@ -117,8 +108,7 @@ outros lugares está com `-`. Este é o modo correto. Caso tenha curiosidade no 
   (:require [reagent.core :as r]))
 
 (defn main
-  []
-  (prn :ok)
+  [] 
   (r/render
     [:div "Olá mundo!"]
     (.getElementById js/document "app")))
@@ -132,7 +122,6 @@ outros lugares está com `-`. Este é o modo correto. Caso tenha curiosidade no 
 
 ```
 .
-├── deps.edn
 ├── package.json
 ├── package-lock.json
 ├── resources

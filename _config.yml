@@ -1,9 +1,24 @@
-title: Enzzo Cavallo
-destination: blog
-baseurl: "/"
-url: "https://souenzzo.com.br/blog"
-
-markdown: kramdown
-theme: minima
-plugins:
-  - jekyll-feed
+{
+  "title": "Enzzo Cavallo",
+  "destination": "blog",
+  "baseurl": "/",
+  "url": "https://souenzzo.com.br/blog",
+  "theme": "minima",
+  "minima": {
+    "social-links": {
+      "twitter": "souenzzo",
+      "github": "souenzzo",
+      "linkedin": "souenzzo",
+      "telegram": "souenzzo",
+      "keybase": "souenzzo",
+      "gitlab": {
+        "username": "souenzzo",
+        "instance": "https://gitlab.com"
+      }
+    }
+  },
+  "plugins": [
+    "jekyll-feed",
+    "jekyll-seo-tag"
+  ]
+}

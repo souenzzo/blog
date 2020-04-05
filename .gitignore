@@ -1,4 +1,3 @@
-.idea/
-*.iml
-.sass-cache
-blog
+blog/
+.jekyll-cache/
+
