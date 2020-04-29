@@ -3,7 +3,6 @@
   "destination": "blog",
   "baseurl": "/",
   "url": "https://souenzzo.com.br/blog",
-  "theme": "minima",
   "minima": {
     "social-links": {
       "twitter": "souenzzo",
@@ -16,9 +15,5 @@
         "instance": "https://gitlab.com"
       }
     }
-  },
-  "plugins": [
-    "jekyll-feed",
-    "jekyll-seo-tag"
-  ]
+  }
 }

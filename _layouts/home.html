@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ site.title | escape }} blog's</title>
+</head>
+<body>
+<ul>
+    {%- for post in site.posts -%}
+    <li>
+        <a href="{{ post.url }}">
+            <code>{{ post.date | date: '#inst"%Y-%m-%d"' }}</code>
+            {{ post.title | escape }}
+        </a>
+        {{ post.excerpt }}
+    </li>
+    {%- endfor -%}
+</ul>
+</body>

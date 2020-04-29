@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ page.title | escape }}</title>
+</head>
+<style>
+        body {
+            padding: 2vh;
+        }
+        @media (prefers-color-scheme: dark) {
+          :root {
+            background: black;
+            color: white;
+          }
+          a {
+            color: lime;
+          }
+          a:visited {
+            color: fuchsia;
+          }
+        }
+    }
+
+</style>
+<body>
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="name headline">{{ page.title | escape }}</h1>
+        <p>
+            {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+            <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+                {{ page.date | date: '#inst"%Y-%m-%d"' }}
+            </time>
+            {%- if page.modified_date -%}
+            ~
+            {%- assign mdate = page.modified_date | date_to_xmlschema -%}
+            <time datetime="{{ mdate }}" itemprop="dateModified">
+                {{ mdate | date: date_format }}
+            </time>
+            {%- endif -%}
+        </p>
+    </header>
+    <main itemprop="articleBody">
+        {{ content }}
+    </main>
+</article>
+</body>
+</html>
+
