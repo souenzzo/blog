@@ -3,6 +3,7 @@
   "destination": "blog",
   "baseurl": "/",
   "url": "https://souenzzo.com.br/blog",
+  "favicon": "/me.jpg",
   "minima": {
     "social-links": {
       "twitter": "souenzzo",

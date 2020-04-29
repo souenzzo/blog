@@ -1,43 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{ page.title | escape }}</title>
+    <title>{{ site.title | escape }} - {{ page.title | escape }}</title>
+    <link rel="icon" href={{ site.favicon }}>
 </head>
 <style>
-        body {
-            padding: 2vh;
-        }
-        @media (prefers-color-scheme: dark) {
-          :root {
-            background: black;
-            color: white;
-          }
-          a {
-            color: lime;
-          }
-          a:visited {
-            color: fuchsia;
-          }
-        }
+    body {
+      margin: 0;
+      padding: 1rem;
+    }
+    article {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 30rem;
     }
 
+    code {
+    }
+    .language-clojure .no {
+      color: purple;
+    }
+    .language-clojure .s {
+      color: green;
+    }
+    .language-clojure .mi {
+      color: blue;
+    }
+    .language-json .nl {
+      color: purple;
+    }
+    .language-json .s2 {
+      color: green;
+    }
+    .language-json .mi {
+      color: blue;
+    }
 </style>
 <body>
 <article itemscope itemtype="http://schema.org/BlogPosting">
     <header>
         <h1 itemprop="name headline">{{ page.title | escape }}</h1>
         <p>
-            {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
             <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
                 {{ page.date | date: '#inst"%Y-%m-%d"' }}
             </time>
-            {%- if page.modified_date -%}
-            ~
-            {%- assign mdate = page.modified_date | date_to_xmlschema -%}
-            <time datetime="{{ mdate }}" itemprop="dateModified">
-                {{ mdate | date: date_format }}
-            </time>
-            {%- endif -%}
         </p>
     </header>
     <main itemprop="articleBody">
