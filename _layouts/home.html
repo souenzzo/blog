@@ -1,18 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{ site.title | escape }} blog's</title>
+    <title>{{ site.title | escape }} - blog</title>
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css">
 </head>
 <body>
-<ul>
-    {%- for post in site.posts -%}
-    <li>
-        <a href="{{ post.url }}">
-            <code>{{ post.date | date: '#inst"%Y-%m-%d"' }}</code>
-            {{ post.title | escape }}
+<header>
+    <nav>
+        <a>
+            {{ site.title | escape }} - blog
         </a>
-        {{ post.excerpt }}
-    </li>
-    {%- endfor -%}
-</ul>
+        <ul>
+            <li><a href="https://souenzzo.com.br">home</a></li>
+            <li>blog</li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <section>
+        {%- for post in site.posts -%}
+        <aside>
+            <a href="{{ post.url }}">
+                <h3>{{ post.title | escape }}</h3>
+                <code>{{ post.date | date: '#inst"%Y-%m-%d"' }}</code>
+            </a>
+            <p>
+                {{ post.excerpt }}
+            </p>
+
+        </aside>
+        {%- endfor -%}
+    </section>
+</main>
+<footer>
+</footer>
 </body>
